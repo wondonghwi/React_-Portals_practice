@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState , useCallback} from 'react';
+import './App.css'
+import MyModal from "./MyModal";
+import ModalPortal from "./MyModalPotal";
 
-function App() {
+const App = () => {
+
+  const [state , setState] = useState(false);
+
+  const handleOpen = useCallback(() => {
+    setState(true);
+  },[]);
+
+  const handleClose = useCallback(() => {
+    setState(false);
+  },[]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>안녕하세요 원동휘!</h1>
+      <button onClick={handleOpen}>모달열기</button>
+      {state && (
+        <ModalPortal>
+          <MyModal onClose={handleClose}/>
+        </ModalPortal>
+      )}
     </div>
   );
-}
+};
 
 export default App;
